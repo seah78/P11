@@ -78,7 +78,9 @@ def purchasePlaces():
 
 
 # TODO: Add route for points display
-
+@app.route('/clubsBoard')
+def clubsBoard():
+    return render_template('clubsboard.html', clubs=clubs)
 
 @app.route('/logout')
 def logout():
