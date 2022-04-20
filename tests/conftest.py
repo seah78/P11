@@ -39,7 +39,7 @@ def mock_competitions(mocker):
     data = [
         {
             "name": "Competition 1",
-            "date": "2022-04-20 10:00:00",
+            "date": "2022-03-20 10:00:00",
             "numberOfPlaces": "25"
         },
         {
