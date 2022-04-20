@@ -39,7 +39,7 @@ def mock_competitions(mocker):
     data = [
         {
             "name": "Competition 1",
-            "date": "2022-03-20 10:00:00",
+            "date": "2022-04-20 10:00:00",
             "numberOfPlaces": "25"
         },
         {
@@ -50,3 +50,15 @@ def mock_competitions(mocker):
     ]
     mocker.patch.object(server, 'competitions', data)
 
+@pytest.fixture
+def captured_templates(app):
+    recorded = []
+
+    def record(sender, template, context, **extra):
+        recorded.append((template, context))
+
+    template_rendered.connect(record, app)
+    try:
+        yield recorded
+    finally:
+        template_rendered.disconnect(record, app)
