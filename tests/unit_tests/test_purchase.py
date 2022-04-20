@@ -2,6 +2,8 @@ class TestPurchasePlaces:
     booking_places_lower_value = {'places': '12', 'competition': 'Competition 2', 'club': 'Premier club'}
     booking_places_higher_value = {'places': '14', 'competition': 'Competition 2', 'club': 'Premier club'}
     booking_places_more_than_12 = {'places': '13', 'competition': 'Competition 1', 'club': 'Premier club'}
+    booking_places = {'places': '4', 'competition': 'Competition 1', 'club': 'Premier club'}
+
 
     def test_valid_purchase(self, client, mock_clubs, mock_competitions):
         """
@@ -39,3 +41,10 @@ class TestPurchasePlaces:
         data = request.data.decode()
         assert "This competition is finished" in data
         assert request.status_code == 200
+        
+    def test_updating_points_after_purchase(self, client, mock_clubs, mock_competitions):
+        request = client.post('/purchasePlaces', data=self.booking_places)
+        data = request.data.decode()
+        assert 'Points available: 9' in data # Mock with 13 points, expected result 9
+        assert request.status_code == 200
+
