@@ -26,15 +26,19 @@ def index():
 
 @app.route('/showSummary',methods=['POST'])
 def showSummary():
+    """
+        If email ok, return page
+        Else error message
+    """
     try:
         club = [club for club in clubs if club['email'] == request.form['email']][0]
-        return render_template('welcome.html',club=club,competitions=competitions)
+        return render_template('welcome.html', club=club, competitions=competitions)
     except IndexError:
         if request.form['email'] == '' :
             flash("Enter an email address", 'warning')
         else:
             flash("Unknown email address", 'warning')
-        return render_template('index.html'), 401#Une authentification est nécessaire pour accéder à la ressource. 
+        return render_template('index.html') 
 
 
 @app.route('/book/<competition>/<club>')
