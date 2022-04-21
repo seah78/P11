@@ -3,6 +3,7 @@ attrs==21.4.0
 certifi==2021.10.8
 cffi==1.15.0
 click==7.1.2
+coverage==6.3.2
 cryptography==36.0.2
 Flask==1.1.2
 Flask-Testing==0.8.1
@@ -21,6 +22,7 @@ pyOpenSSL==22.0.0
 pyparsing==3.0.8
 PySocks==1.7.1
 pytest==7.1.1
+pytest-cov==3.0.0
 pytest-flask==1.2.0
 pytest-mock==3.7.0
 selenium==4.1.3
