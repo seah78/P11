@@ -46,6 +46,11 @@ def mock_competitions(mocker):
             "name": "Competition 2",
             "date": "2022-05-22 10:00:00",
             "numberOfPlaces": "13"
+        },
+        {
+            "name": "Competition 3",
+            "date": "2022-07-17 10:00:00",
+            "numberOfPlaces": "21"
         }
     ]
     mocker.patch.object(server, 'competitions', data)

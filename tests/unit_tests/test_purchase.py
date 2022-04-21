@@ -73,7 +73,7 @@ class TestPurchasePlaces:
         """
         Test purchase in finish competition
         """
-        request = client.get('/book/Competition 3/Premier club')
+        request = client.get('/book/Competition 4/Premier club')
         data = request.data.decode()
         template, context = captured_templates[0]
         assert len(captured_templates) == 1
