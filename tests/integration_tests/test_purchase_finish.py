@@ -1,9 +1,8 @@
 def test_purchase_finish(client, captured_templates, mock_competitions, mock_clubs):
     """ 
-    Test purchase in two competition
+    Test purchase and finish competition
     """
     first_booking_places = {'places': '8', 'competition': 'Competition 3', 'club': 'Troisième club'}
-    second_booking_places = {'places': '1', 'competition': 'Competition 1', 'club': 'Troisième club'}
 
     request1 = client.post('/purchasePlaces', data=first_booking_places)
     assert request1.status_code == 200
