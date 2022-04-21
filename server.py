@@ -44,16 +44,18 @@ def showSummary():
 
 @app.route('/book/<competition>/<club>')
 def book(competition,club):
-    foundClub = [c for c in clubs if c['name'] == club][0]
-    foundCompetition = [c for c in competitions if c['name'] == competition][0]
-    date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        foundClub = [c for c in clubs if c['name'] == club][0]
+        foundCompetition = [c for c in competitions if c['name'] == competition][0]
+        date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    if foundClub and foundCompetition:
-        if foundCompetition['date'] < date_time:
-            flash("This competition is finished")
-            return render_template("welcome.html", club=club, competitions=competitions)
-        return render_template('booking.html',club=foundClub,competition=foundCompetition)
-    else:
+
+        if foundClub and foundCompetition:
+            if foundCompetition['date'] < date_time:
+                flash("This competition is finished")
+                return render_template("welcome.html", club=club, competitions=competitions)
+            return render_template('booking.html',club=foundClub,competition=foundCompetition)
+    except IndexError:
         flash("Something went wrong-please try again")
         return render_template('welcome.html', club=club, competitions=competitions)
     
