@@ -29,7 +29,7 @@ def mock_clubs(mocker):
         {
             "name": "Troisième club",
             "email": "club3@test.fr",
-            "points": "12"
+            "points": "24"
         }
     ]
     mocker.patch.object(server, 'clubs', data)

@@ -1,8 +1,10 @@
 class TestPurchasePlaces:
-    booking_places_lower_value = {'places': '12', 'competition': 'Competition 2', 'club': 'Premier club'}
+    booking_places_lower_value = {'places': '4', 'competition': 'Competition 2', 'club': 'Troisième club'}
     booking_places_higher_value = {'places': '14', 'competition': 'Competition 2', 'club': 'Premier club'}
     booking_places_more_than_12 = {'places': '13', 'competition': 'Competition 1', 'club': 'Premier club'}
-    booking_places = {'places': '4', 'competition': 'Competition 1', 'club': 'Premier club'}
+    booking_places = {'places': '4', 'competition': 'Competition 1', 'club': 'Troisième club'}
+    booking_places_not_have_enought_points = {'places': '4', 'competition': 'Competition 1', 'club': 'Deuxième club'}
+    
 
     @staticmethod
     def _test_request(request, captured_templates):
@@ -80,10 +82,23 @@ class TestPurchasePlaces:
         
         
     def test_updating_points_after_purchase(self, client, mock_clubs, mock_competitions, captured_templates):
+        """ 
+        Test updating points after purchase
+        """
         request = client.post('/purchasePlaces', data=self.booking_places)
         data = request.data.decode()
         template, context = self._test_request(request, captured_templates)
         assert template.name == "welcome.html"
-        assert 'Points available: 9' in data # Mock with 13 points, expected result 9
+        assert 'Points available: 12' in data # Mock with 24 points, expected result 12
         assert request.status_code == 200
 
+    def test_purchase_not_have_enought_points(self, client, mock_clubs, mock_competitions, captured_templates):
+        """
+        Test purchase not have enought points
+        """
+        request = client.post('/purchasePlaces', data=self.booking_places_not_have_enought_points)
+        data = request.data.decode()
+        template, context = self._test_request(request, captured_templates)
+        assert template.name == "welcome.html"
+        assert 'You do not have enough points. The transaction is aborted.' in data
+        assert request.status_code == 200
